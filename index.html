@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ping ME</title>
+  </head>
+  <body>
+    <label for="url">URL:</label>
+    <input type="text" id="url" />
+    <label for="frequency">Frequency (every 5-120 seconds):</label>
+    <label id="frequency-label">30</label>
+    <input type="range" id="frequency" min="5" max="120" value="5" />
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>URL</th>
+          <th>Response</th>
+        </tr>
+      </thead>
+      <tbody id="requests-body"></tbody>
+    </table>
+  </body>
+</html>
