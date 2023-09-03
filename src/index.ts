@@ -2,9 +2,7 @@ import {
   catchError,
   combineLatest,
   debounceTime,
-  from,
   fromEvent,
-  interval,
   map,
   mergeMap,
   of,
@@ -14,9 +12,6 @@ import {
   timer,
 } from "rxjs";
 import { ajax } from "rxjs/ajax";
-
-const URL = "https://www.google.com";
-const frequencyInMs = 1 * 1000; // 1 second
 
 const tableBody = document.getElementById("requests-body");
 const urlInput = document.getElementById("url");
@@ -54,13 +49,11 @@ combineLatest([url$, frequency$]).pipe(
   })
 );
 
-// Errors cause the stream to stop ;(
-
 combineLatest([url$, frequency$])
   .pipe(
     tap(console.log),
     switchMap(([url, frequency]) =>
-      interval(frequency).pipe(
+      timer(0, frequency).pipe(
         mergeMap(() =>
           ajax
             .get(`https://cors-anywhere.herokuapp.com/${url}`)
