@@ -20,7 +20,7 @@ const tableBody = document.getElementById("requests-table-body");
 const urlInput = document.getElementById("url");
 const frequencySlider = document.getElementById("period");
 const frequencyLabel = document.getElementById("period-label");
-const proxyUrl = "http://localhost:3001";
+const proxyUrl = "https://cors-here-mdeb.onrender.com";
 
 function addRowToTable(time: string, url: string, response: string) {
   const row = document.createElement("tr");
