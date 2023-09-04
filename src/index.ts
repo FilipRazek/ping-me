@@ -2,26 +2,35 @@ import {
   catchError,
   combineLatest,
   debounceTime,
+  filter,
   fromEvent,
   map,
+  merge,
+  mergeAll,
   mergeMap,
   of,
   startWith,
   switchMap,
-  tap,
   timer,
 } from "rxjs";
 import { ajax } from "rxjs/ajax";
+import "./index.css";
 
-const tableBody = document.getElementById("requests-body");
+const tableBody = document.getElementById("requests-table-body");
 const urlInput = document.getElementById("url");
-const frequencySlider = document.getElementById("frequency");
-const frequencyLabel = document.getElementById("frequency-label");
+const frequencySlider = document.getElementById("period");
+const frequencyLabel = document.getElementById("period-label");
+const proxyUrl = "http://localhost:3001";
 
 function addRowToTable(time: string, url: string, response: string) {
   const row = document.createElement("tr");
   row.innerHTML = `<td>${time}</td><td>${url}</td><td>${response}</td>`;
   tableBody.appendChild(row);
+  return row;
+}
+
+function updateRow(row: HTMLTableRowElement, response: string) {
+  row.children[2].textContent = response;
 }
 
 const frequency$ = fromEvent(frequencySlider, "input").pipe(
@@ -39,31 +48,28 @@ frequency$.subscribe((frequency) => {
 });
 
 const url$ = fromEvent(urlInput, "input").pipe(
-  debounceTime(500),
-  map((event: Event & { target: HTMLInputElement }) => event.target.value)
-);
-
-combineLatest([url$, frequency$]).pipe(
-  tap(([url, frequency]) => {
-    console.log(url, frequency);
-  })
+  debounceTime(1000),
+  map((event: Event & { target: HTMLInputElement }) => event.target.value),
+  filter((url) => url.length > 0)
 );
 
 combineLatest([url$, frequency$])
   .pipe(
-    tap(console.log),
     switchMap(([url, frequency]) =>
       timer(0, frequency).pipe(
-        mergeMap(() =>
-          ajax
-            .get(`https://cors-anywhere.herokuapp.com/${url}`)
-            .pipe(map((response) => [url, response.status]))
-        ),
-        catchError((error) => of([url, error.message]))
+        map(() => {
+          const newRow = addRowToTable(
+            new Date().toLocaleTimeString(),
+            url,
+            "Pending..."
+          );
+          return ajax.get(`${proxyUrl}/${url}`).pipe(
+            catchError((error) => of({ status: error.message })),
+            map((response) => updateRow(newRow, response.status.toString()))
+          );
+        }),
+        mergeAll()
       )
     )
   )
-  .subscribe(([url, status]) => {
-    const time = new Date().toLocaleTimeString();
-    addRowToTable(time, url, status);
-  });
+  .subscribe();
