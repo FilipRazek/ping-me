@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.requests-table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.requests-table tr:nth-of-type(even),
+.requests-table th {
+  background-color: rgba(3, 168, 250, 0.1);
+}
+
+.requests-table tr:nth-of-type(odd) {
+  background-color: rgba(139, 195, 74, 0.1);
+}
+
+.requests-table td,
+.requests-table th {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.setting {
+  margin: 20px 0;
+}
