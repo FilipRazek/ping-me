@@ -3,14 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <title>Ping ME</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
   </head>
-  <body>
-    <label for="url">URL:</label>
-    <input type="text" id="url" />
-    <label for="frequency">Frequency (every 5-120 seconds):</label>
-    <label id="frequency-label">30</label>
-    <input type="range" id="frequency" min="5" max="120" value="5" />
-    <table>
+  <body class="container">
+    <div class="setting">
+      <label for="url">URL:</label>
+      <input type="text" id="url" />
+    </div>
+    <div class="setting">
+      <label for="period">Period (s):</label>
+      <span id="period-label"></span>
+      <input type="range" id="period" min="5" max="120" value="5" />
+    </div>
+    <table class="requests-table setting">
       <thead>
         <tr>
           <th>Time</th>
@@ -18,7 +23,18 @@
           <th>Response</th>
         </tr>
       </thead>
-      <tbody id="requests-body"></tbody>
+      <tbody id="requests-table-body">
+        <tr>
+          <td>10:03:10 AM</td>
+          <td>google.com</td>
+          <td>200</td>
+        </tr>
+        <tr>
+          <td>10:03:12 AM</td>
+          <td>google.</td>
+          <td>ajax error 404</td>
+        </tr>
+      </tbody>
     </table>
   </body>
 </html>
