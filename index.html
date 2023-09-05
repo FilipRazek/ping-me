@@ -6,6 +6,8 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
   </head>
   <body class="container">
+    <h1>Ping ME</h1>
+    <h2>Enter a URL below to start pinging it.</h2>
     <div class="setting">
       <label for="url">URL:</label>
       <input type="text" id="url" />
@@ -23,18 +25,13 @@
           <th>Response</th>
         </tr>
       </thead>
-      <tbody id="requests-table-body">
-        <tr>
-          <td>10:03:10 AM</td>
-          <td>google.com</td>
-          <td>200</td>
-        </tr>
-        <tr>
-          <td>10:03:12 AM</td>
-          <td>google.</td>
-          <td>ajax error 404</td>
-        </tr>
-      </tbody>
+      <tbody id="requests-table-body"></tbody>
     </table>
+    <p>The server might take a while to start if you're the only user ;)</p>
+    <p>
+      Built by
+      <a target="_blank" href="https://github.com/FilipRazek/">Filip Razek</a>
+    </p>
+    <a target="_blank" href="https://www.buymeacoffee.com/filiprazek">Donate</a>
   </body>
 </html>
