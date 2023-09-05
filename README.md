@@ -1,15 +1,6 @@
-# 🚀 Welcome to your new awesome project!
+# 🚀 Welcome!
 
-This project has been created using **webpack-cli**, you can now run
+This site is running at https://ping-me-ucyi.onrender.com
 
-```
-npm run build
-```
-
-or
-
-```
-yarn build
-```
-
-to bundle your application
+If you want to quickly check that your website is working, this service can help you!
+Simply enter your URL and a period to start pinging it.
